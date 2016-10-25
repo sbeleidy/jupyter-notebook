@@ -1,32 +1,30 @@
 # \<jupyter-notebook\>
 
-A web component to embed Jupyter notebooks
+A web component to embed Jupyter notebooks - wrapper for [notebookjs](https://github.com/jsvine/notebookjs).
 
-## Install the Polymer-CLI
+## Using \<jupyter-notebook\>
+
+```
+  <jupyter-notebook src="Demo.ipynb"></jupyter-notebook>
+```
+
+or
+```
+  <jupyter-notebook src="https://raw.githubusercontent.com/fonnesbeck/pytenn2014_tutorial/master/Part%202.%20Statistical%20Data%20Modeling.ipynb"></jupyter-notebook>
+```
+
+If linking to a notebook file on GitHub, make sure you link to the raw file as shown above.
+
+## Contributing
+
+### Install the Polymer-CLI
 
 First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve` to serve your application locally.
 
-## Viewing Your Application
+### Viewing The Component
 
 ```
 $ polymer serve
-```
-
-## Building Your Application
-
-```
-$ polymer build
-```
-
-This will create a `build/` folder with `bundled/` and `unbundled/` sub-folders
-containing a bundled (Vulcanized) and unbundled builds, both run through HTML,
-CSS, and JS optimizers.
-
-You can serve the built versions by giving `polymer serve` a folder to serve
-from:
-
-```
-$ polymer serve build/bundled
 ```
 
 ## Running Tests
@@ -34,5 +32,3 @@ $ polymer serve build/bundled
 ```
 $ polymer test
 ```
-
-Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally.
