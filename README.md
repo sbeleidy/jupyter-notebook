@@ -4,11 +4,32 @@ A web component to embed Jupyter notebooks - wrapper for [notebookjs](https://gi
 
 ## Using \<jupyter-notebook\>
 
+<!--
 ```
-  <jupyter-notebook src="Demo.ipynb"></jupyter-notebook>
+<custom-element-demo>
+  <template>
+      <link rel=”import” href=”my-element.html”>
+    <next-code-block></next-code-block>
+  </template>    
+</custom-element-demo>
+```
+-->
+```
+    <jupyter-notebook src="Demo.ipynb"></jupyter-notebook>
 ```
 
+
 or
+<!--
+```
+<custom-element-demo>
+  <template>
+      <link rel=”import” href=”my-element.html”>
+    <next-code-block></next-code-block>
+  </template>    
+</custom-element-demo>
+```
+-->
 ```
   <jupyter-notebook src="https://raw.githubusercontent.com/fonnesbeck/pytenn2014_tutorial/master/Part%202.%20Statistical%20Data%20Modeling.ipynb"></jupyter-notebook>
 ```
