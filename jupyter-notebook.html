@@ -1,0 +1,91 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-spinner/paper-spinner.html">
+
+<!--
+`jupyter-notebook`
+A web component to embed Jupyter notebooks. This component is a wrapper for [notebookjs](https://github.com/jsvine/notebookjs).
+
+```
+  <jupyter-notebook src="Demo.ipynb"></jupyter-notebook>
+```
+
+or
+```
+  <jupyter-notebook src="https://raw.githubusercontent.com/fonnesbeck/pytenn2014_tutorial/master/Part%202.%20Statistical%20Data%20Modeling.ipynb"></jupyter-notebook>
+```
+If linking to a notebook file on GitHub, make sure you link to the raw file as shown above.
+
+@demo demo/index.html 
+-->
+
+<dom-module id="jupyter-notebook">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      a {
+        color: blue;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    </style>
+    <script src="bower_components/notebookjs/notebook.js"></script>
+    <div id="notebook">
+
+    </div>
+
+    <div class="loading" hidden$="{{!loading}}">
+      <paper-spinner active></paper-spinner>
+    </div>
+    <div class="err" hidden$="{{!err}}">
+      Sorry, the requested Jupyter Notebook could not be loaded.
+      <br>
+      <a on-click="_retry">Click here to retry.</a>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'jupyter-notebook',
+
+      properties: {
+        /**
+         *  `src` represents the url or relative path to the Jupyter notebook file
+         */
+        src: {
+          type: String
+        },
+        err: {
+          type: Boolean,
+          value: false
+        },
+        loading: {
+          type: Boolean,
+          value: true
+        }
+      },
+      attached: function(){
+        this._retry();
+      },
+      _retry: function(){
+        this.loading = true;
+        this.err = false;
+        fetch(this.src).then(function(response){
+          return response.json();
+        }).then(function(json){
+          return nb.parse(json).render();
+        }).then(function(rendered){
+          this.loading = false;
+          this.$.notebook.appendChild(rendered);
+        }.bind(this)).catch(function(err){
+          console.log(err);
+          this.loading = false;
+          this.err = true;
+        }.bind(this));
+      }
+
+    });
+  </script>
+</dom-module>
