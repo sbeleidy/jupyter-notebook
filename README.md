@@ -8,7 +8,7 @@ A web component to embed Jupyter notebooks - wrapper for [notebookjs](https://gi
 ```
 <custom-element-demo>
   <template>
-      <link rel=”import” href=”my-element.html”>
+      <link rel=”import” href=”jupyter-notebook.html”>
     <next-code-block></next-code-block>
   </template>    
 </custom-element-demo>
@@ -24,7 +24,7 @@ or
 ```
 <custom-element-demo>
   <template>
-      <link rel=”import” href=”my-element.html”>
+      <link rel=”import” href=”jupyter-notebook.html”>
     <next-code-block></next-code-block>
   </template>    
 </custom-element-demo>
