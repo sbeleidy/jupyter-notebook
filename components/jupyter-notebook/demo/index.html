@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+  <head>
+    <title>jupyter-notebook demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+
+    <link rel="import" href="../jupyter-notebook.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+  </head>
+  <body>
+
+    <div class="vertical-section-container ">
+      <h3>Local jupyter-notebook Demo</h3>
+      <demo-snippet>
+        <template>
+          <jupyter-notebook src="Demo.ipynb"></jupyter-notebook>
+        </template>
+      </demo-snippet>
+    </div>
+
+    <div class="vertical-section-container ">
+      <h3>URL jupyter-notebook Demo</h3>
+      <p>If using links to github hosted files, use a link to the raw file as shown here.</p>
+      <demo-snippet>
+        <template>
+          <jupyter-notebook src="https://raw.githubusercontent.com/fonnesbeck/pytenn2014_tutorial/master/Part%202.%20Statistical%20Data%20Modeling.ipynb"></jupyter-notebook>
+        </template>
+      </demo-snippet>
+    </div>
+
+    <div class="vertical-section-container ">
+      <h3>Error jupyter-notebook Demo</h3>
+      <demo-snippet>
+        <template>
+          <jupyter-notebook src="BlaBlaBla"></jupyter-notebook>
+        </template>
+      </demo-snippet>
+    </div>
+
+  </body>
+</html>

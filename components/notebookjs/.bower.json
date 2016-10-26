@@ -1,0 +1,14 @@
+{
+  "name": "notebookjs",
+  "homepage": "https://github.com/jsvine/notebookjs",
+  "version": "0.2.6",
+  "_release": "0.2.6",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.2.6",
+    "commit": "030f101fb07e63d5b2c626733f5bd25fb24b3999"
+  },
+  "_source": "https://github.com/jsvine/notebookjs.git",
+  "_target": "^0.2.6",
+  "_originalSource": "notebookjs"
+}
