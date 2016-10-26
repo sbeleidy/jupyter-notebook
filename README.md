@@ -2,6 +2,10 @@
 
 A web component to embed Jupyter notebooks - wrapper for [notebookjs](https://github.com/jsvine/notebookjs).
 
+## Installing \<jupyter-notebook\>
+
+`bower install jupyter-notebook --save`
+
 ## Using \<jupyter-notebook\>
 
 <!--
