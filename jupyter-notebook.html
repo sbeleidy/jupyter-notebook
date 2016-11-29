@@ -1,6 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../paper-spinner/paper-spinner.html">
-
+<script src="../notebookjs/notebook.js"></script>
 <!--
 `jupyter-notebook`
 A web component to embed Jupyter notebooks. This component is a wrapper for [notebookjs](https://github.com/jsvine/notebookjs).
@@ -15,7 +15,7 @@ or
 ```
 If linking to a notebook file on GitHub, make sure you link to the raw file as shown above.
 
-@demo demo/index.html 
+@demo demo/index.html
 -->
 
 <dom-module id="jupyter-notebook">
@@ -30,7 +30,11 @@ If linking to a notebook file on GitHub, make sure you link to the raw file as s
         cursor: pointer;
       }
     </style>
-    <script src="../notebookjs/notebook.js"></script>
+    <iron-ajax auto
+      url="[[src]]"
+      handle-as="json"
+      last-response="{{data}}">
+    </iron-ajax>
     <div id="notebook">
 
     </div>
@@ -64,27 +68,39 @@ If linking to a notebook file on GitHub, make sure you link to the raw file as s
         loading: {
           type: Boolean,
           value: true
+        },
+        data: {
+          type: Object,
+          value: _ => ({}),
+          observer: '_onData'
         }
       },
       attached: function(){
-        this._retry();
+        // this._retry();
       },
-      _retry: function(){
-        this.loading = true;
-        this.err = false;
-        fetch(this.src).then(function(response){
-          return response.json();
-        }).then(function(json){
-          return nb.parse(json).render();
-        }).then(function(rendered){
-          this.loading = false;
-          this.$.notebook.appendChild(rendered);
-        }.bind(this)).catch(function(err){
-          console.log(err);
-          this.loading = false;
-          this.err = true;
-        }.bind(this));
-      }
+
+      _onData(data) {
+        var rendered = nb.parse(data).render();
+        this.$.notebook.appendChild(rendered);
+        this.loading = false;
+      },
+
+      // _retry: function(){
+      //   this.loading = true;
+      //   this.err = false;
+      //   fetch(this.src).then(function(response){
+      //     return response.json();
+      //   }).then(function(json){
+      //     return nb.parse(json).render();
+      //   }).then(function(rendered){
+      //     this.loading = false;
+      //     this.$.notebook.appendChild(rendered);
+      //   }.bind(this)).catch(function(err){
+      //     console.log(err);
+      //     this.loading = false;
+      //     this.err = true;
+      //   }.bind(this));
+      // }
 
     });
   </script>
