@@ -1,5 +1,7 @@
 # \<jupyter-notebook\>
 
+[![Join the chat at https://gitter.im/sbeleidy/jupyter-notebook](https://badges.gitter.im/sbeleidy/jupyter-notebook.svg)](https://gitter.im/sbeleidy/jupyter-notebook?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 A web component to embed Jupyter notebooks - wrapper for [notebookjs](https://github.com/jsvine/notebookjs).
 
 ## Installing \<jupyter-notebook\>
