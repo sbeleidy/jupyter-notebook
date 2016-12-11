@@ -33,16 +33,17 @@ If linking to a notebook file on GitHub, make sure you link to the raw file as s
     <iron-ajax auto
       url="[[src]]"
       handle-as="json"
+      last-error="{{error}}"
       last-response="{{data}}">
     </iron-ajax>
     <div id="notebook">
 
     </div>
 
-    <div class="loading" hidden$="{{!loading}}">
+    <div class="loading" hidden$="[[!loading]]">
       <paper-spinner active></paper-spinner>
     </div>
-    <div class="err" hidden$="{{!err}}">
+    <div class="err" hidden$="[[!err]]">
       Sorry, the requested Jupyter Notebook could not be loaded.
       <br>
       <a on-click="_retry">Click here to retry.</a>
@@ -62,8 +63,8 @@ If linking to a notebook file on GitHub, make sure you link to the raw file as s
           type: String
         },
         err: {
-          type: Boolean,
-          value: false
+          type: Object,
+          observer: '_onError'
         },
         loading: {
           type: Boolean,
@@ -75,32 +76,17 @@ If linking to a notebook file on GitHub, make sure you link to the raw file as s
           observer: '_onData'
         }
       },
-      attached: function(){
-        // this._retry();
+
+      _onError(err) {
+        this.loading = false;
+        this.err = true;
       },
 
       _onData(data) {
         var rendered = nb.parse(data).render();
         this.$.notebook.appendChild(rendered);
         this.loading = false;
-      },
-
-      // _retry: function(){
-      //   this.loading = true;
-      //   this.err = false;
-      //   fetch(this.src).then(function(response){
-      //     return response.json();
-      //   }).then(function(json){
-      //     return nb.parse(json).render();
-      //   }).then(function(rendered){
-      //     this.loading = false;
-      //     this.$.notebook.appendChild(rendered);
-      //   }.bind(this)).catch(function(err){
-      //     console.log(err);
-      //     this.loading = false;
-      //     this.err = true;
-      //   }.bind(this));
-      // }
+      }
 
     });
   </script>
