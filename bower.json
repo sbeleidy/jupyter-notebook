@@ -1,6 +1,6 @@
 {
   "name": "jupyter-notebook",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "author": "Saad Elbeleidy <sbeleidy90@gmail.com>",
   "description": "A web component to embed Jupyter notebooks - wrapper for notebookjs",
   "keywords": [
