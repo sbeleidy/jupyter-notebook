@@ -1,5 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../paper-spinner/paper-spinner.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
 <script src="../notebookjs/notebook.js"></script>
 <!--
 `jupyter-notebook`
@@ -33,7 +34,7 @@ If linking to a notebook file on GitHub, make sure you link to the raw file as s
     <iron-ajax auto
       url="[[src]]"
       handle-as="json"
-      last-error="{{error}}"
+      last-error="{{requestError}}"
       last-response="{{data}}">
     </iron-ajax>
     <div id="notebook">
@@ -43,10 +44,13 @@ If linking to a notebook file on GitHub, make sure you link to the raw file as s
     <div class="loading" hidden$="[[!loading]]">
       <paper-spinner active></paper-spinner>
     </div>
-    <div class="err" hidden$="[[!err]]">
-      Sorry, the requested Jupyter Notebook could not be loaded.
+    <div class="err" hidden$="[[!_computedError(requestError, processingError)]]">
+      Sorry, the requested Jupyter Notebook loaded, but it is invalid.
+    </div>
+    <div class="err" hidden$="[[!requestError]]">
+      Sorry, the requested Jupyter Notebook could not be loaded. Please check that the resource is available:
       <br>
-      <a on-click="_retry">Click here to retry.</a>
+      <a href$="[[src]]">[[src]]</a>
     </div>
   </template>
 
@@ -60,15 +64,23 @@ If linking to a notebook file on GitHub, make sure you link to the raw file as s
          *  `src` represents the url or relative path to the Jupyter notebook file
          */
         src: {
-          type: String
+          type: String,
+          value: _ => ""
         },
-        err: {
+        requestError: {
           type: Object,
+          value: function() {
+            return null
+          },
           observer: '_onError'
+        },
+        processingError: {
+          type: Boolean,
+          value: function() { return false }
         },
         loading: {
           type: Boolean,
-          value: true
+          value: function() { return true }
         },
         data: {
           type: Object,
@@ -77,17 +89,24 @@ If linking to a notebook file on GitHub, make sure you link to the raw file as s
         }
       },
 
-      _onError(err) {
+      _onError(error) {
         this.loading = false;
-        this.err = true;
+      },
+
+      _computedError: function(requestError, processingError) {
+        return !requestError && processingError
       },
 
       _onData(data) {
-        var rendered = nb.parse(data).render();
-        this.$.notebook.appendChild(rendered);
-        this.loading = false;
+        try {
+          var rendered = nb.parse(data).render();
+          this.$.notebook.appendChild(rendered);
+          this.loading = false;
+          this.processingError = false;
+        } catch(processingError) {
+          this.processingError = processingError;
+        }
       }
-
     });
   </script>
 </dom-module>
